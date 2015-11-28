@@ -30,9 +30,6 @@ and open the template in the editor.
     <?php
 include('logincheck.php'); // Includes Login Script
 
-if(isset($_SESSION['UserId'])){
- header("location:../Admin.php");
-}
 ?>
 </body>
 </html>

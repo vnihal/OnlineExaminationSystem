@@ -27,8 +27,9 @@ if ($rows!=0) {
 $_SESSION['UserId']=$username; // Initializing Session
 
 if($previlege['Previleged']==1){
-header("location:../Admin.php"); // Redirecting To Other Page
 $_SESSION['admin_login'] = "OK";
+    header("location:../Admin.php"); // Redirecting To Other Page
+
 }
 if($previlege['Previleged']==2){
     
@@ -37,8 +38,9 @@ if($previlege['Previleged']==3){
     
 }
 if ($previlege['Previleged']==4) {
-    header("location:../Student.php");
     $_SESSION['student_login'] = "OK";
+    header("location:../Student.php");
+   
     
 }
 } 
