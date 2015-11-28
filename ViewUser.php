@@ -1,5 +1,6 @@
  <?php
 include 'Admin.php';
+include ("./adminLoginControl.php");
 ?>
 <div>
     

@@ -1,6 +1,7 @@
 <?php
 
 include 'ConnectionDatabase.php';
+include ("./adminLoginControl.php");
 //Define the query
 $s=$_POST['UserId'];
 

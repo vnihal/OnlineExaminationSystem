@@ -3,6 +3,7 @@
 
 
 include ("ConnectionDatabase.php"); 
+include ("./adminLoginControl.php");
 //require_once 'ConnectionDatabase.php';
 
 

@@ -8,6 +8,7 @@
     <?php
 include 'Admin.php';
 include 'ConnectionDatabase.php';
+include ("./adminLoginControl.php");
 
 ?>
 <div>
