@@ -1,5 +1,5 @@
  <?php
-include '../Admin.php';
+include 'Admin.php';
 ?>
 <div>
     
@@ -10,7 +10,7 @@ include '../Admin.php';
 
     <?php
  
- require_once '../AdminObje.php';
+ require_once 'AdminObje.php';
  $Abmininstance=new AdminObje();
  $contacts=$Abmininstance->viewListOfUser();
 
@@ -27,6 +27,7 @@ include '../Admin.php';
                                 <th>Email</th>
                                 <th>Previliged As</th>
                                 <th>Delete User</th>
+                                <th>Edit User</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,7 +46,15 @@ include '../Admin.php';
                                     <form action='delete.php' name="<?php echo $contact['UserId']; ?>" method="post">
                 <input type="hidden" name="UserId" value="<?php echo $contact['UserId']; ?>">
                 <input type="submit" name="submit" value="Delete" >
-                </form></td>                
+                </form></td>  
+                
+                                  <td class="contact-edit">
+                                  <form action='edit.php' name="<?php echo $contact['UserId']; ?>" method="get">
+                <input type="hidden" name="UserId" value="<?php echo $contact['UserId']; ?>">
+                <input type="submit" name="submit" value="Edit" >
+                </form> </td> 
+                
+                                
                             </tr>
 
                         <?php endwhile; ?>

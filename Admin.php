@@ -23,8 +23,8 @@ and open the template in the editor.
             <li><a href="Admin.php">Home</a></li>
 		<li><a href="#">Manage User</a>
 			<ul>
-				<li><a href="#">Add User</a></li>
-                                <li><a href="UserManagement/ViewUser.php">View User</a></li>
+                            <li><a href="RegisterUser.php">Add User</a></li>
+                                <li><a href="ViewUser.php">View User</a></li>
                                 
 					<ul>
 						<li><a href="#">....</a></li>

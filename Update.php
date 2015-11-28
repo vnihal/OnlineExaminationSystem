@@ -20,7 +20,7 @@ if(!$add){
     echo mysql_error();
 }
  
-//header("location: ViewUser.php");
+header("location: ViewUser.php");
 
 ?>
 
