@@ -86,7 +86,7 @@ $userId = $_SESSION['UserId'];
                 <div class="form-group">
                     <label class="control-label col-xs-2" for="inputPassword">For Course:</label>
                     <div class="col-xs-9">
-                        <select name="forCourse">
+                        <select name="forCourse" class="form-control">
 <?php
 $query = "SELECT course.courseid,coursename FROM course,courseinstructor WHERE course.courseid=courseinstructor.courseid AND userid='$userId'";
 $result = mysql_query($query);
