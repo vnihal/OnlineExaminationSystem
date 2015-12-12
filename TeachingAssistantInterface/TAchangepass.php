@@ -1,8 +1,14 @@
 
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <?php
-include 'StudentObje.php';
-include 'menu.php';
-
+include './TeachingAssistant.php';
+include './TAmenu.php';
+//include './inslogincheck.php';
 include '../ConnectionDatabase.php';
 session_start();
 //error_reporting(-1);
@@ -11,13 +17,13 @@ session_start();
 
 
 <?php
-$currentStudent = $_SESSION['currentStudent'];
+$currentTeachingAssistant = $_SESSION['currentTeachingAssistant'];
 
 if (!empty($_REQUEST['savem'])) {
     if($_REQUEST['password']!=$_REQUEST['repass']){
         $_GLOBALS['message'] = "Password Do Not Match!!";
     }else{
-         $query = "update user set UserPassword='" . $_REQUEST['password'] . "' where UserId='" . $currentStudent->getUserid() . "'";
+         $query = "update user set UserPassword='" . $_REQUEST['password'] . "' where UserId='" . $currentTeachingAssistant->getUserid() . "'";
 
         if (!mysql_query($query))
             $_GLOBALS['message'] = mysql_error();
@@ -38,11 +44,11 @@ if (!empty($_REQUEST['savem'])) {
 
         <div id="container">
 
-            <form id="editprofile" action="stdprofile.php" onsubmit="return validateChangePassForm()" method="post" >
+            <form id="editprofile" action="TAchangepass.php" onsubmit="return validateChangePassForm()" method="post" >
                 <div>
 <?php
 //Displays the saved information.
-$userid=$currentStudent->getUserid();
+$userid=$currentTeachingAssistant->getUserid();
 $result = mysql_query("select UserId from user where UserId='$userid'");
 
 $r = mysql_fetch_array($result);

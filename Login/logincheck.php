@@ -6,6 +6,7 @@ include '../AdminInterface/User.php';
 include '../AdminInterface/Admin.php';
 include '../StudentInterface/StudentObje.php';
 include '../InstructorInterface/InstructorObject.php';
+include '../TeachingAssistantInterface/TeachingAssistant.php';
 
 $error=''; // Variable To Store Error Message
 if (isset($_POST['Login'])) {
@@ -54,6 +55,23 @@ else
                       header("location:../InstructorInterface/inshomepage.php"); 
                     }
                      if($result['queryarray']['Privilege_id']==3){
+                         
+                          $_SESSION['teachingassistant_login']="OK";
+                       $currentTeachingAssistant = new TeachingAssistant();
+                       $currentTeachingAssistant->setUserid($result['queryarray']['UserId']);
+                       $currentTeachingAssistant->setFirstname($result['queryarray']['FirstName']);
+                       $currentTeachingAssistant->setLastname($result['queryarray']['LastName']);
+                       $currentTeachingAssistant->setPrivilege($result['queryarray']['Privilege_id']);
+                       $currentTeachingAssistant->setTelno($result['queryarray']['TelNum']);
+                      
+                       $_SESSION['currentTeachingAssistant'] = $currentTeachingAssistant;
+ 
+                         
+                
+                         
+                      header("location:../TeachingAssistantInterface/TAhomepage.php"); 
+                         
+                         
     
                     }
                       if ($result['queryarray']['Privilege_id']==4) {

@@ -37,7 +37,7 @@ if (!empty($_REQUEST['savem'])) {
         <title>OES-Edit Profile</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
        <!-- <link rel="stylesheet" type="text/css" href="../Media/css/login_form.css"/>-->
-        <script type="text/javascript" src="../validate.js" ></script>
+        <script type="text/javascript" src="../Media/js/validate.js" ></script>
     </head>
     <body >
 
@@ -65,7 +65,7 @@ $r = mysql_fetch_array($result);
                         <input type="password" name="password" id="password" onkeyup="isalphanum(this)"class="form-control2"  />
                         <label>Repeat Password</label>
                         <input type="password" name="repass" id="repass" onkeyup="isalphanum(this)"class="form-control2"/>
-                        
+                         
                         
                         
                         
