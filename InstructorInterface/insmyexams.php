@@ -22,6 +22,12 @@ $currentUserId = $_SESSION['UserId'];
         //mysql_query($query) or die (mysql_error());
     }
 
+    if(isset($_REQUEST['manageQuestionsButton'])){
+        $selectedExamID = $_POST['selectedExamId'];
+        $_SESSION['selectedExamId'] = $selectedExamID;
+        header('Location: ./insmanagequestions.php');
+    }
+    
     if(isset($_REQUEST['editExam_saveButton'])){
         //$examName = addslashes($_POST['popup_examName']);
         //$examType = addslashes($_POST['popup_examTypeRadios']);
@@ -49,7 +55,7 @@ $currentUserId = $_SESSION['UserId'];
             $num_rows = mysql_num_rows($resultSet);
 
             if ($num_rows > 0) {
-                echo "<br><table id='mytable' class='table-hover table-bordered table-striped table col-xs-offset-1' align='center' ><tr><th>Course Id</th><th>Exam Name</th>"
+                echo "<br><table id='myExamsTable' class='table-hover table-bordered table-striped table col-xs-offset-1' align='center' ><tr><th>Course Id</th><th>Exam Name</th>"
                 . "<th>Exam Type</th><th>Start Date</th><th>End Date</th><th>Duration</th><th>Secret Code</th><th>Operation</th></tr>";
                 $counter = 0;
                 while ($result = mysql_fetch_array($resultSet)) :
@@ -64,8 +70,9 @@ $currentUserId = $_SESSION['UserId'];
                         <td id="durationSpinner" class="contact-lastname" value="<?php echo $result['Duration']; ?>"><?php echo $result['Duration']; ?></td>
                         <td id="secretCode" class="contact-lastname" value="<?php echo $result['secretcode']; ?>" ><?php echo $result['secretcode']; ?></td>
                         <td style="display:none;" value="<?php echo $result['examid']; ?>"><?php echo $result['examid']; ?></td>
-                        <td> <form action='insmyexams.php' name="<?php echo $result['courseid']; ?>" method="post">
-                        <input type="button" class="btn btn-success btn-md" name="examSelectButton" value="Add Question" ></input>
+                        <td> 
+                        <form action='insmyexams.php' name="<?php echo $result['courseid']; ?>" method="post">
+                        <input type="submit" class="btn btn-success btn-md" name="manageQuestionsButton" value="Manage Questions" ></input>
                         <!-- <input type="submit" class="btn-info" name="examSelectButton" value="Edit" > -->
                         
                         <button type="button" value="<?php echo $counter?>" id="examEditButton" class="btn btn-info btn-md" onclick="fillPopUpForm(this)" data-toggle="modal" data-target="#myPopUpModal">Edit</button>
