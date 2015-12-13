@@ -1,13 +1,13 @@
 <?php
 
-session_start(); // Starting Session
+// Starting Session
 include ("../ConnectionDatabase.php");
 include '../AdminInterface/User.php';
 include '../AdminInterface/Admin.php';
 include '../StudentInterface/StudentObje.php';
 include '../InstructorInterface/InstructorObject.php';
 include '../TeachingAssistantInterface/TeachingAssistant.php';
-
+session_start(); 
 $error=''; // Variable To Store Error Message
 if (isset($_POST['Login'])) {
 if (empty($_POST['userId']) || empty($_POST['password'])) {

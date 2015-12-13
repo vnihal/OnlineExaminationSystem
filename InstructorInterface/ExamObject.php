@@ -5,9 +5,15 @@ class ExamObject {
     var $examId,$examName,$examType,$courseId,
         $startDate,$endDate,$duration,$secretCode;
     
-    function Exam($examId,$examName){
-        $this->examId = $examId;
+    function Exam($examName,$examType,$courseId,$startDate,$endDate,$duration,$secretCode){
+        
         $this->examName = $examName;
+        $this->examType=$examType;
+        $this->courseId=$courseid;
+        $this->startDate=$startDate;
+        $this->endDate=$endDate;
+        $this->duration=$duration;
+        $this->secretCode=$secretCode;
 }
 
 function getExamId() {

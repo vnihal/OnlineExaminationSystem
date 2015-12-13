@@ -2,9 +2,11 @@
 include 'insmenu.php';
 include '../ConnectionDatabase.php';
 include 'inslogincheck.php';
+include 'InstructorObject.php';
 
 
 $userId = $_SESSION['UserId'];
+
 ?>
 
 <html lang="en">
@@ -27,29 +29,29 @@ $userId = $_SESSION['UserId'];
     <?php
     if (isset($_POST['submit'])) {
 
-        $examName = addslashes($_POST['examName']);
-        $examType = addslashes($_POST['examTypeRadios']);
+       // $examName = addslashes($_POST['examName']);
+        //$examType = addslashes($_POST['examTypeRadios']);
         $parts = explode('/', $_POST['startDate']);
         $startDate = addslashes("$parts[2]-$parts[1]-$parts[0]"); // change date format to yyyy-mm-dd(for mysql)
 
         $parts = explode('/', $_POST['endDate']);
         $endDate = addslashes("$parts[2]-$parts[1]-$parts[0]"); // change date format to yyyy-mm-dd(for mysql)
-        $secretCode = addslashes($_POST['secretCode']);
-        $courseId = addslashes($_POST['forCourse']);
-        $duration = addslashes($_POST['duration']);
+        //$secretCode = addslashes($_POST['secretCode']);
+        //$courseId = addslashes($_POST['forCourse']);
+        //$duration = addslashes($_POST['duration']);
         
+        InstructorObject::createexam(addslashes($_POST['examName']),addslashes($_POST['examTypeRadios']),addslashes($_POST['forCourse']),$startDate,$endDate,addslashes($_POST['duration']),addslashes($_POST['secretCode']),$userId);
 
-
-        $completeSql = "BEGIN;";
-        mysql_query($completeSql) or die (mysql_error());
-        $completeSql = "INSERT INTO exam " . "(examtype,examname,courseid,StartDate,EndDate,Duration,secretcode) " .
-                "VALUES('$examType','$examName','$courseId','$startDate','$endDate','$duration','$secretCode');";
-         mysql_query($completeSql) or die (mysql_error());
-        $completeSql = "INSERT INTO instructor_exam " . "(userid,examid,status,isReviewed) " .
-                "VALUES('$userId',LAST_INSERT_ID(),'active','0');";
-         mysql_query($completeSql) or die (mysql_error());
-        $completeSql = "COMMIT;";
-         mysql_query($completeSql) or die (mysql_error());
+       // $completeSql = "BEGIN;";
+        //mysql_query($completeSql) or die (mysql_error());
+        //$completeSql = "INSERT INTO exam " . "(examtype,examname,courseid,StartDate,EndDate,Duration,secretcode) " .
+          //      "VALUES('$examType','$examName','$courseId','$startDate','$endDate','$duration','$secretCode');";
+         //mysql_query($completeSql) or die (mysql_error());
+        //$completeSql = "INSERT INTO instructor_exam " . "(userid,examid,status,isReviewed) " .
+          //      "VALUES('$userId',LAST_INSERT_ID(),'active','0');";
+         //mysql_query($completeSql) or die (mysql_error());
+        //$completeSql = "COMMIT;";
+         //mysql_query($completeSql) or die (mysql_error());
        // echo "\n" . $completeSql . "\n";
          header("location:./insmyexams.php");
 
@@ -88,8 +90,10 @@ $userId = $_SESSION['UserId'];
                     <div class="col-xs-9">
                         <select name="forCourse">
 <?php
-$query = "SELECT course.courseid,coursename FROM course,courseinstructor WHERE course.courseid=courseinstructor.courseid AND userid='$userId'";
-$result = mysql_query($query);
+//$query = "SELECT course.courseid,coursename FROM course,courseinstructor WHERE course.courseid=courseinstructor.courseid AND userid='$userId'";
+//$result = mysql_query($query);
+
+ $result=InstructorObject::listOfMycourses($userId);
 while ($row = mysql_fetch_array($result)) {
     echo "<option name='" . $row['courseid'] . "' value='" . $row['courseid'] . "'>" . $row['courseid'] . " - " . $row['coursename'] . "</option>";
 }

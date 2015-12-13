@@ -7,38 +7,44 @@ and open the template in the editor.
 <?php
 include 'insmenu.php';
 include '../ConnectionDatabase.php';
-session_start();
+include 'InstructorObject.php';
+
 $currentUserId = $_SESSION['UserId'];
 ?>
 
 <?php
     if(isset($_REQUEST['examDeleteButton'])){
         $selectedExamID = $_POST['selectedExamId'];
-        $query = "DELETE from exam where examid='$selectedExamID'";
-        mysql_query($query) or die (mysql_error());
+              
+        InstructorObject::deleteExam($selectedExamID);
+
+// $query = "DELETE from exam where examid='$selectedExamID'";
+        //mysql_query($query) or die (mysql_error());
     }
 
     if(isset($_REQUEST['editExam_saveButton'])){
-        $examName = addslashes($_POST['popup_examName']);
-        $examType = addslashes($_POST['popup_examTypeRadios']);
+        //$examName = addslashes($_POST['popup_examName']);
+        //$examType = addslashes($_POST['popup_examTypeRadios']);
         $parts = explode('/', $_POST['popup_startDate']);
         $startDate = addslashes("$parts[2]-$parts[1]-$parts[0]"); // change date format to yyyy-mm-dd(for mysql)
 
         $parts = explode('/', $_POST['popup_endDate']);
         $endDate = addslashes("$parts[2]-$parts[1]-$parts[0]"); // change date format to yyyy-mm-dd(for mysql)
-        $secretCode = addslashes($_POST['popup_secretCode']);
-        $courseId = addslashes($_POST['popup_forCourse']);
-        $duration = addslashes($_POST['popup_duration']);
-        $examId = addslashes($_POST['popup_selectedExamId']);
+        //$secretCode = addslashes($_POST['popup_secretCode']);
+        //$courseId = addslashes($_POST['popup_forCourse']);
+       //$duration = addslashes($_POST['popup_duration']);
+        //$examId = addslashes($_POST['popup_selectedExamId']);
                 
-
-        $completeSql = "UPDATE exam " . "SET examtype='$examType',examname='$examName',courseid='$courseId',StartDate='$startDate',EndDate='$endDate',Duration='$duration',secretcode='$secretCode' " .
-                "WHERE examid='$examId';";
-         mysql_query($completeSql) or die (mysql_error());
+        InstructorObject::UpdateExam(addslashes($_POST['popup_examName']),addslashes($_POST['popup_examTypeRadios']),addslashes($_POST['popup_forCourse']),$startDate,$endDate,addslashes($_POST['popup_duration']),addslashes($_POST['popup_secretCode']),addslashes($_POST['popup_selectedExamId']));
+        //$completeSql = "UPDATE exam " . "SET examtype='$examType',examname='$examName',courseid='$courseId',StartDate='$startDate',EndDate='$endDate',Duration='$duration',secretcode='$secretCode' " .
+          //      "WHERE examid='$examId';";
+         //mysql_query($completeSql) or die (mysql_error());
          $_GLOBALS['message']="Edit completed successfully";
     }
-    $query = "SELECT exam.examid,examtype,examname,courseid,StartDate,EndDate,Duration,secretcode FROM exam,instructor_exam WHERE exam.examid=instructor_exam.examid AND UserId='".$currentUserId."'";
-     $resultSet = mysql_query($query) or die (mysql_error());
+    //$query = "SELECT exam.examid,examtype,examname,courseid,StartDate,EndDate,Duration,secretcode FROM exam,instructor_exam WHERE exam.examid=instructor_exam.examid AND UserId='".$currentUserId."'";
+     //$resultSet = mysql_query($query) or die (mysql_error());
+    
+    $resultSet=InstructorObject::listExams($currentUserId);
 
             $num_rows = mysql_num_rows($resultSet);
 
@@ -115,8 +121,8 @@ $currentUserId = $_SESSION['UserId'];
                     <div class="col-xs-9">
                         <select id="popup_forCourse" name="popup_forCourse" class="form-control">
 <?php
-$query = "SELECT course.courseid,coursename FROM course,courseinstructor WHERE course.courseid=courseinstructor.courseid AND userid='$currentUserId'";
-$result = mysql_query($query);
+//$query = "SELECT course.courseid,coursename FROM course,courseinstructor WHERE course.courseid=courseinstructor.courseid AND userid='$currentUserId'";
+$result = InstructorObject::listOfMycourses($currentUserId);
 while ($row = mysql_fetch_array($result)) {
     echo "<option name='" . $row['courseid'] . "' value='" . $row['courseid'] . "'>" . $row['courseid'] . " - " . $row['coursename'] . "</option>";
 }
